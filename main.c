@@ -6,6 +6,7 @@
 *******************************************************/
 #include "msp.h"
 #include "LCD.h"
+#include <string.h>
 //#include "LCD.c"
 
 
@@ -14,8 +15,14 @@
  */
 void main(void)
 {
+    volatile uint8_t lone[] = "EMILY";
+    volatile uint8_t ltwo[] = "BECCA";
+    volatile uint8_t lthree[] = "EGR";
+    volatile uint8_t lfour[] = "226";
+
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
     innit_pins();
+    write_command(0b00000011);
     LCD_innit();
     write_command(0b00000001);
     write_command(0b00000011);
@@ -23,29 +30,26 @@ void main(void)
     write_command(0b00001111);
     Systick_ms_delay(100);
     space(5);
-    dataWrite(0x45);//E
-    dataWrite(0x4D);//m
-    dataWrite(0x49);//i
-    dataWrite(0x4C);//l
-    dataWrite(0x59);//y
+    int i = 0;
+    for(i = 0;i<5;i++){
+            dataWrite((int)lone[i]);//print to LCD
+        }
     space(12);
-    dataWrite(0x45);//e
-    dataWrite(0x47);//g
-    dataWrite(0x52);//r
+    for(i = 0;i<3;i++){
+            dataWrite((int)lthree[i]);//print to LCD
+        }
     space(12);
     space(8);
-    dataWrite(0x42);//b
-    dataWrite(0x45);//e
-    dataWrite(0x43);//c
-    dataWrite(0x43);//c
-    dataWrite(0x41);//a
+    for(i = 0;i<5;i++){
+            dataWrite((int)ltwo[i]);//print to LCD
+        }
     space(12);
-    dataWrite(0x32);//2
-    dataWrite(0x32);//2
-    dataWrite(0x36);//6
+    for(i = 0;i<3;i++){
+            dataWrite((int)lfour[i]);//print to LCD
+        }
 
-    while(1){//hi
-        //no
+    while(1){
+        //keeps loop from exiting
         //dataWrite(0x45);
 
     }
